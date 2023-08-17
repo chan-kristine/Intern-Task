@@ -7,14 +7,14 @@ const buttonTypes = {
   secondary: 'secondary',
 };
 
-function Button({ children, variant = 'primary' }) {
+function Button({ children, type, variant = 'primary' }) {
   return (
     <button
       className={getClasses([
         styles.button,
         styles[`button--${buttonTypes[variant]}`], // Use styles instead of style
       ])}
-      type="button"
+      type={type === 'submit' ? 'submit' : 'button'}
     >
       {children}
     </button>
