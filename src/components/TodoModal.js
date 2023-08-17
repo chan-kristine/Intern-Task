@@ -9,8 +9,19 @@ function TodoModal() {
         <div className={styles.closeButton}>
           <MdClose />
         </div>
-        <form>
+        <form className={styles.form}>
           <h1 className={styles.formTitle}>Add Task</h1>
+          <label htmlFor="title">
+            Title
+            <input type="text" id="title" />
+          </label>
+          <label htmlFor="status">
+            Status
+            <select name="status" id="status">
+              <option value="incomplete">Incomplete</option>
+              <option value="complete">Complete</option>
+            </select>
+          </label>
         </form>
       </div>
     </div>
