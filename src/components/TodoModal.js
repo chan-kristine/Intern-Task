@@ -12,7 +12,6 @@ function TodoModal() {
         <form>
           <h1 className={styles.formTitle}>Add Task</h1>
         </form>
-        {/* You can add more content here if needed */}
       </div>
     </div>
   );
