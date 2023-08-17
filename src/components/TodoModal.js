@@ -9,7 +9,9 @@ function TodoModal() {
         <div className={styles.closeButton}>
           <MdClose />
         </div>
-        <h1>This is from Modal</h1>
+        <form>
+          <h1 className={styles.formTitle}>Add Task</h1>
+        </form>
         {/* You can add more content here if needed */}
       </div>
     </div>
