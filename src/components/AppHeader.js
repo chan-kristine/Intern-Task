@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { MdDelete } from 'react-icons/md';
 import Button, { SelectButton } from './Button';
 import styles from '../styles/modules/app.module.scss';
+import { updateFilterStatus, deleteAllTasks } from '../slices/todoSlice';
 import TodoModal from './TodoModal';
-import { updateFilterStatus } from '../slices/todoSlice';
 
 function AppHeader() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,10 +17,17 @@ function AppHeader() {
     dispatch(updateFilterStatus(e.target.value));
   };
 
+  const handleDeleteAllTasks = () => {
+    dispatch(deleteAllTasks());
+  };
+
   return (
     <div className={styles.appHeader}>
       <Button variant="primary" onClick={() => setModalOpen(true)}>
         Add Task
+      </Button>
+      <Button variant="danger" onClick={handleDeleteAllTasks}>
+        <MdDelete />
       </Button>
       <SelectButton
         id="status"

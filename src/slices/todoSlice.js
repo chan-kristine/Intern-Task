@@ -5,7 +5,7 @@ const getInitialTodo = () => {
   if (localTodoList) {
     return JSON.parse(localTodoList);
   }
-  window.localStorage.setItem('todoList', []);
+  window.localStorage.setItem('todoList', JSON.stringify([]));
   return [];
 };
 
@@ -56,21 +56,32 @@ export const todoSlice = createSlice({
       const todoList = window.localStorage.getItem('todoList');
       if (todoList) {
         const todoListArr = JSON.parse(todoList);
-        todoListArr.forEach((todo, index) => {
-          if (todo.id === action.payload) {
-            todoListArr.splice(index, 1);
-          }
-        });
-        window.localStorage.setItem('todoList', JSON.stringify(todoListArr));
-        state.todoList = todoListArr;
+        const updatedTodoList = todoListArr.filter(
+          (todo) => todo.id !== action.payload
+        );
+        window.localStorage.setItem(
+          'todoList',
+          JSON.stringify(updatedTodoList)
+        );
+        state.todoList = updatedTodoList;
       }
     },
     updateFilterStatus: (state, action) => {
       state.filterStatus = action.payload;
     },
+    deleteAllTasks: (state) => {
+      state.todoList = [];
+      window.localStorage.setItem('todoList', JSON.stringify([]));
+    },
   },
 });
 
-export const { addTodo, updateTodo, deleteTodo, updateFilterStatus } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  updateTodo,
+  deleteTodo,
+  updateFilterStatus,
+  deleteAllTasks,
+} = todoSlice.actions;
+
 export default todoSlice.reducer;
