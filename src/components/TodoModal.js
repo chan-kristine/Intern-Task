@@ -3,13 +3,13 @@ import { MdClose } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
-import { addTodo } from '../slices/todoSlice';
+import { addTodo, updateTodo } from '../slices/todoSlice'; // Make sure to import the correct update action
 import styles from '../styles/modules/modal.module.scss';
 import { Button } from './Button';
 
-function TodoModal({ type, modalOpen, setModalOpen }) {
-  const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('incomplete');
+function TodoModal({ type, modalOpen, setModalOpen, todo }) {
+  const [title, setTitle] = useState(todo?.title || ''); // Initialize with todo title if available
+  const [status, setStatus] = useState(todo?.status || 'incomplete'); // Initialize with todo status if available
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -34,7 +34,18 @@ function TodoModal({ type, modalOpen, setModalOpen }) {
       dispatch(addTodo(newTodo));
       toast.success('Task added successfully!');
     } else if (type === 'update') {
-      console.log('Updating task');
+      if (todo.title !== title || todo.status !== status) {
+        dispatch(
+          updateTodo({
+            ...todo,
+            title,
+            status,
+          })
+        );
+        toast.success('Task updated successfully!');
+      } else {
+        toast.error('No changes made');
+      }
     }
 
     setModalOpen(false);
