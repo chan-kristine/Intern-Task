@@ -1,33 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { deleteTodo } from '../slices/todoSlice';
+import { deleteTodo, updateTodo } from '../slices/todoSlice';
 import styles from '../styles/modules/todoItem.module.scss';
-import { getClasses } from '../utils/getClasses';
 import TodoModal from './TodoModal';
 
 function TodoItem({ todo }) {
   const dispatch = useDispatch();
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('incomplete');
 
-  // Update local state when the todo prop changes
-  useEffect(() => {
-    if (updateModalOpen && todo) {
-      setTitle(todo.title);
-      setStatus(todo.status);
-    } else {
-      setTitle('');
-      setStatus('incomplete');
-    }
-  }, [updateModalOpen, todo]);
-
-  // Log the updated status whenever it changes
-  useEffect(() => {
-    console.log('Status:', status);
-  }, [status]);
+  const handleCheckboxChange = () => {
+    const updatedStatus =
+      todo.status === 'complete' ? 'incomplete' : 'complete';
+    dispatch(
+      updateTodo({ id: todo.id, status: updatedStatus, title: todo.title })
+    );
+  };
 
   const handleDelete = () => {
     dispatch(deleteTodo(todo.id));
@@ -45,13 +34,17 @@ function TodoItem({ todo }) {
     <>
       <div className={styles.item}>
         <div className={styles.todoDetails}>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={todo.status === 'complete'}
+            onChange={handleCheckboxChange}
+          />
           <div className={styles.texts}>
             <p
-              className={getClasses([
+              className={[
                 styles.todoText,
                 todo.status === 'complete' && styles['todoText--complete'],
-              ])}
+              ].join(' ')}
             >
               {todo.title}
             </p>
@@ -87,8 +80,7 @@ function TodoItem({ todo }) {
         modalOpen={updateModalOpen}
         setModalOpen={setUpdateModalOpen}
         onClose={handleCloseModal}
-        title={title}
-        status={status}
+        status={todo.status}
       />
     </>
   );
