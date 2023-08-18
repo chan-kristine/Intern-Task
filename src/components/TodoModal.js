@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import { addTodo } from '../slices/todoSlice';
 import styles from '../styles/modules/modal.module.scss';
 import { Button } from './Button';
 
 function TodoModal({ modalOpen, setModalOpen }) {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('incomplete');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ title, status });
+    if (title && status) {
+      dispatch(
+        addTodo({
+          id: uuid(),
+          title,
+          status,
+          time: new Date().toLocaleDateString(),
+        })
+      );
+      setModalOpen(false); // Close the modal after submitting
+    }
   };
+
   return (
     modalOpen && (
       <div className={styles.wrapper}>
@@ -28,7 +43,7 @@ function TodoModal({ modalOpen, setModalOpen }) {
           >
             <MdClose />
           </div>
-          <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <h1 className={styles.formTitle}>Add Task</h1>
             <label htmlFor="title">
               Title
