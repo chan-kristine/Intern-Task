@@ -25,7 +25,10 @@ function TodoModal() {
           </label>
           <div className={styles.buttonContainer}>
             <Button type="submit" variant="primary">
-              Add Task {/* Move the text inside the Button component */}
+              Add Task {}
+            </Button>
+            <Button type="button" variant="secondary">
+              Cancel {}
             </Button>
           </div>
         </form>
