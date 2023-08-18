@@ -5,8 +5,12 @@ import { Button } from './Button';
 
 function TodoModal({ modalOpen, setModalOpen }) {
   const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('incomplete');
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ title, status });
+  };
   return (
     modalOpen && (
       <div className={styles.wrapper}>
@@ -24,7 +28,7 @@ function TodoModal({ modalOpen, setModalOpen }) {
           >
             <MdClose />
           </div>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
             <h1 className={styles.formTitle}>Add Task</h1>
             <label htmlFor="title">
               Title
