@@ -3,13 +3,13 @@ import { MdClose } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
-import { addTodo, updateTodo } from '../slices/todoSlice'; // Make sure to import the correct update action
+import { addTodo, updateTodo } from '../slices/todoSlice';
 import styles from '../styles/modules/modal.module.scss';
 import { Button } from './Button';
 
 function TodoModal({ type, modalOpen, setModalOpen, todo }) {
-  const [title, setTitle] = useState(todo?.title || ''); // Initialize with todo title if available
-  const [status, setStatus] = useState(todo?.status || 'incomplete'); // Initialize with todo status if available
+  const [title, setTitle] = useState(todo?.title || '');
+  const [status, setStatus] = useState(todo?.status || 'incomplete');
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -24,12 +24,14 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
       return;
     }
 
+    const newTime = new Date().toLocaleString(); // Get the current date and time
+
     if (type === 'add') {
       const newTodo = {
         id: uuid(),
         title,
         status,
-        time: new Date().toLocaleDateString(),
+        time: newTime,
       };
       dispatch(addTodo(newTodo));
       toast.success('Task added successfully!');
@@ -40,6 +42,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
             ...todo,
             title,
             status,
+            time: newTime,
           })
         );
         toast.success('Task updated successfully!');
@@ -47,6 +50,10 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
         toast.error('No changes made');
       }
     }
+
+    // Clear input fields after submitting
+    setTitle('');
+    setStatus('incomplete');
 
     setModalOpen(false);
   };

@@ -21,7 +21,8 @@ function TodoItem({ todo }) {
       setTitle('');
       setStatus('incomplete');
     }
-  }, [updateModalOpen, todo]);
+    console.log('Status:', status);
+  }, [updateModalOpen, todo, status]);
 
   const handleDelete = () => {
     dispatch(deleteTodo(todo.id));
