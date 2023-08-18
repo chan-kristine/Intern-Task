@@ -64,6 +64,7 @@ function TodoItem({ todo }) {
         </div>
       </div>
       <TodoModal
+        type="update"
         modalOpen={updateModalOpen}
         setModalOpen={setUpdateModalOpen}
         onClose={handleCloseModal}
