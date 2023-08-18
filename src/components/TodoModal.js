@@ -26,6 +26,8 @@ function TodoModal({ modalOpen, setModalOpen }) {
       );
       setModalOpen(false);
       toast.success('Task Added Successfully');
+    } else {
+      toast.error("Title shouldn't be empty");
     }
   };
 
