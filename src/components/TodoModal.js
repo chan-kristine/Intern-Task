@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
 import styles from '../styles/modules/modal.module.scss';
+import { Button } from './Button';
 
 function TodoModal() {
   return (
@@ -22,6 +23,11 @@ function TodoModal() {
               <option value="complete">Complete</option>
             </select>
           </label>
+          <div className={styles.buttonContainer}>
+            <Button type="submit" variant="primary">
+              Add Task {/* Move the text inside the Button component */}
+            </Button>
+          </div>
         </form>
       </div>
     </div>
