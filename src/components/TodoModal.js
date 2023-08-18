@@ -35,6 +35,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
       };
       dispatch(addTodo(newTodo));
       toast.success('Task added successfully!');
+      setModalOpen(false);
 
       // Clear input fields and status after adding a new task
       setTitle('');

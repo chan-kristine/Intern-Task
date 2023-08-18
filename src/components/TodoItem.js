@@ -13,6 +13,7 @@ function TodoItem({ todo }) {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('incomplete');
 
+  // Update local state when the todo prop changes
   useEffect(() => {
     if (updateModalOpen && todo) {
       setTitle(todo.title);
@@ -21,8 +22,12 @@ function TodoItem({ todo }) {
       setTitle('');
       setStatus('incomplete');
     }
+  }, [updateModalOpen, todo]);
+
+  // Log the updated status whenever it changes
+  useEffect(() => {
     console.log('Status:', status);
-  }, [updateModalOpen, todo, status]);
+  }, [status]);
 
   const handleDelete = () => {
     dispatch(deleteTodo(todo.id));
@@ -82,8 +87,8 @@ function TodoItem({ todo }) {
         modalOpen={updateModalOpen}
         setModalOpen={setUpdateModalOpen}
         onClose={handleCloseModal}
-        title={title} // Pass title to the modal
-        status={status} // Pass status to the modal
+        title={title}
+        status={status}
       />
     </>
   );
