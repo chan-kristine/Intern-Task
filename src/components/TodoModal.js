@@ -35,6 +35,10 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
       };
       dispatch(addTodo(newTodo));
       toast.success('Task added successfully!');
+
+      // Clear input fields and status after adding a new task
+      setTitle('');
+      setStatus('incomplete');
     } else if (type === 'update') {
       if (todo.title !== title || todo.status !== status) {
         dispatch(
@@ -49,13 +53,9 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
       } else {
         toast.error('No changes made');
       }
+
+      setModalOpen(false);
     }
-
-    // Clear input fields after submitting
-    setTitle('');
-    setStatus('incomplete');
-
-    setModalOpen(false);
   };
 
   return modalOpen ? (
