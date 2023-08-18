@@ -4,20 +4,22 @@ import styles from '../styles/modules/modal.module.scss';
 import { Button } from './Button';
 
 function TodoModal({ modalOpen, setModalOpen }) {
-  const handleAddTask = () => {
-    setModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setModalOpen(false);
-  };
-
   return (
     <div>
       {modalOpen && (
         <div className={styles.wrapper}>
           <div className={styles.container}>
-            <div className={styles.closeButton}>
+            <div
+              className={styles.closeButton}
+              onClick={() => setModalOpen(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setModalOpen(false);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+            >
               <MdClose />
             </div>
             <form className={styles.form}>
@@ -34,13 +36,18 @@ function TodoModal({ modalOpen, setModalOpen }) {
                 </select>
               </label>
               <div className={styles.buttonContainer}>
-                <Button type="button" variant="primary" onClick={handleAddTask}>
+                <Button type="submit" variant="primary">
                   Add Task
                 </Button>
                 <Button
                   type="button"
                   variant="secondary"
-                  onClick={handleCancel}
+                  onClick={() => setModalOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setModalOpen(false);
+                    }
+                  }}
                 >
                   Cancel
                 </Button>

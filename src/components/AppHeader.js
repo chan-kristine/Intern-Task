@@ -4,7 +4,7 @@ import styles from '../styles/modules/app.module.scss';
 import TodoModal from './TodoModal';
 
 function AppHeader() {
-  const [modalOpen, setModalOpen] = useState(false); // Corrected usage
+  const [modalOpen, setModalOpen] = useState(true);
 
   return (
     <div className={styles.appHeader}>
