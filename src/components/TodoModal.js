@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import toast from 'react-hot-toast';
 import { addTodo } from '../slices/todoSlice';
 import styles from '../styles/modules/modal.module.scss';
 import { Button } from './Button';
@@ -13,6 +14,7 @@ function TodoModal({ modalOpen, setModalOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('handleSubmit is called');
     if (title && status) {
       dispatch(
         addTodo({
@@ -22,7 +24,8 @@ function TodoModal({ modalOpen, setModalOpen }) {
           time: new Date().toLocaleDateString(),
         })
       );
-      setModalOpen(false); // Close the modal after submitting
+      setModalOpen(false);
+      toast.success('Task Added Successfully');
     }
   };
 
