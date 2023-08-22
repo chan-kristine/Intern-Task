@@ -18,7 +18,12 @@ function AppHeader() {
   };
 
   const handleDeleteAllTasks = () => {
-    dispatch(deleteAllTasks());
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete all tasks? This action cannot be undone.'
+    );
+    if (confirmDelete) {
+      dispatch(deleteAllTasks());
+    }
   };
 
   return (
