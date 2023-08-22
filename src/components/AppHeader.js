@@ -23,12 +23,14 @@ function AppHeader() {
 
   return (
     <div className={styles.appHeader}>
-      <Button variant="primary" onClick={() => setModalOpen(true)}>
-        Add Task
-      </Button>
-      <Button variant="danger" onClick={handleDeleteAllTasks}>
-        <MdDelete />
-      </Button>
+      <div className={styles.buttonContainer}>
+        <Button variant="primary" onClick={() => setModalOpen(true)}>
+          Add Task
+        </Button>
+        <Button variant="danger" onClick={handleDeleteAllTasks}>
+          <MdDelete />
+        </Button>
+      </div>
       <SelectButton
         id="status"
         onChange={(e) => updateFilter(e)}
