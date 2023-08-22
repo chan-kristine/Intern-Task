@@ -39,8 +39,14 @@ function TodoItem({ todo }) {
   };
 
   const handleDelete = () => {
-    dispatch(deleteTodo(todo.id));
-    toast.success('Todo Deleted Successfully');
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this task? This action cannot be undone.'
+    );
+
+    if (confirmDelete) {
+      dispatch(deleteTodo(todo.id));
+      toast.success('Todo Deleted Successfully');
+    }
   };
 
   const handleUpdate = () => {
